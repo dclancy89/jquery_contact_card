@@ -7,7 +7,7 @@ $(document).ready(function() {
 	$('#add_card').submit(function(e) {
 		e.preventDefault();
 
-		var el = '<div class="card" id="card_' + count + '">';
+		var el = '<div class="card" id="card_' + count + '" data-show-desc="false">';
 		
 
 		el += '<h2>' + $('#first_name').val() + ' ' + $('#last_name').val() + '</h2>';
@@ -28,7 +28,16 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.card', function(){
-		$(this).html('<p>' + $(this).data('description') + '</p>');
+
+		if($(this).attr('data-show-desc') == "false") {
+			$(this).attr('data-show-desc', 'true')
+			$(this).html('<p>' + $(this).data('description') + '</p>');
+		} else if ($(this).attr('data-show-desc') == "true") {
+			$(this).attr('data-show-desc', 'false')
+			$(this).html('<h2>' + $(this).data('first_name') + ' ' + $(this).data('last_name') + '</h2>');
+			$(this).append('<p>Click for description</p>');
+		}
+
 	});
 
 
